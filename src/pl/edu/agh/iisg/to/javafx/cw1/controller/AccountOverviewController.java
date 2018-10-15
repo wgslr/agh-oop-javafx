@@ -36,6 +36,7 @@ public class AccountOverviewController {
     @FXML
     private void handleDeleteAction(ActionEvent event) {
         data.getTransactions().removeAll(transactionsTable.getSelectionModel().getSelectedItems());
+        transactionsTable.getItems().setAll(data.getTransactions());
     }
 
     @FXML
