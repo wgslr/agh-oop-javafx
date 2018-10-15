@@ -1,7 +1,10 @@
 package pl.edu.agh.iisg.to.javafx.cw1.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -10,10 +13,10 @@ public class Transaction {
 
     private static final String EMPTY = "";
 
-    private LocalDate date;
+    private ObjectProperty<LocalDate> date;
     private StringProperty payee;
-    private Category category;
-    private BigInteger inflow;
+    private ObjectProperty<Category> category;
+    private ObjectProperty<BigInteger> inflow;
 
 
     private Transaction() {
@@ -21,18 +24,22 @@ public class Transaction {
     }
 
     public Transaction(LocalDate date, String payee, Category category, BigInteger inflow) {
-        this.date = date;
-        this.payee = new SimpleStringProperty(payee;
-        this.category = category;
-        this.inflow = inflow;
+        this.date = new SimpleObjectProperty<>(date);
+        this.payee = new SimpleStringProperty(payee);
+        this.category = new SimpleObjectProperty<>(category);
+        this.inflow = new SimpleObjectProperty<>(inflow);
     }
 
     public final LocalDate getDate() {
-        return date;
+        return date.get();
     }
 
     public final void setDate(LocalDate date) {
-        this.date = date;
+        this.date.setValue(date);
+    }
+
+    public final ObjectProperty<LocalDate> getDateProperty() {
+        return this.date;
     }
 
 
@@ -49,21 +56,29 @@ public class Transaction {
     }
 
     public final Category getCategory() {
-        return category;
+        return category.get();
     }
 
 
     public final void setCategory(Category category) {
-        this.category = category;
+        this.category.setValue(category);
+    }
+
+    public final ObjectProperty<Category> getCategoryProperty() {
+        return this.category;
     }
 
 
     public final BigInteger getInflow() {
-        return inflow;
+        return inflow.get();
     }
 
     public final void setInflow(BigInteger inflow) {
-        this.inflow = inflow;
+        this.inflow.setValue(inflow);
+    }
+
+    public final ObjectProperty<BigInteger> getInflowProperty() {
+        return this.inflow;
     }
 
     public static final Transaction newTransaction() {
